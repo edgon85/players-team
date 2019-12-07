@@ -5,7 +5,8 @@ export interface Player {
   position: SquadNumber;
   weight: number;
   height: number;
-  nationality: boolean;
+  nationality: string;
+  leftFooted: boolean;
 }
 
 export enum SquadNumber {

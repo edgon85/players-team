@@ -9,9 +9,11 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { environment } from '../environments/environment';
 import { HomeComponent } from './components/pages/home/home.component';
 import { TableTeamComponent } from './components/pages/table-team/table-team.component';
+import { PlayerTablesComponent } from './components/pages/player-tables/player-tables.component';
+import { PlayerDialogComponent } from './components/reutilizables/player-dialog/player-dialog.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, TableTeamComponent],
+  declarations: [AppComponent, HomeComponent, TableTeamComponent, PlayerTablesComponent, PlayerDialogComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
