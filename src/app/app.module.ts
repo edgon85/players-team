@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,10 +14,17 @@ import { PlayerTablesComponent } from './components/pages/player-tables/player-t
 import { PlayerDialogComponent } from './components/reutilizables/player-dialog/player-dialog.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, TableTeamComponent, PlayerTablesComponent, PlayerDialogComponent],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    TableTeamComponent,
+    PlayerTablesComponent,
+    PlayerDialogComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule
   ],

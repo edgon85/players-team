@@ -17,7 +17,9 @@ export class PlayerTablesComponent implements OnInit {
   // tslint:disable-next-line: variable-name
   constructor(private _playerService: PlayerService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.obtenerPlayers();
+  }
 
   obtenerPlayers() {
     this.players$ = this._playerService.getPlayers();
@@ -27,7 +29,7 @@ export class PlayerTablesComponent implements OnInit {
     this.showModal = true;
     this.selectdPlayer = null;
     setTimeout(() => {
-      window.location.replace('#open');
+      window.location.replace('#open-modal');
     }, 0);
   }
 }

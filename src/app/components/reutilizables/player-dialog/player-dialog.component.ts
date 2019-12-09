@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Team } from '../../../interfaces/team';
 import { Countries } from 'src/app/interfaces/players';
-import { SquadNumber } from '../../../interfaces/players';
+import { SquadNumber, Player } from '../../../interfaces/players';
 import { PlayerService } from '../../../services/player.service';
 import { TeamService } from '../../../services/team.service';
 import { take } from 'rxjs/operators';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-player-dialog',
@@ -13,22 +14,25 @@ import { take } from 'rxjs/operators';
 })
 export class PlayerDialogComponent implements OnInit {
   private team: Team;
+  public player: Player;
 
   public countries = Object.keys(Countries).map(key => ({
     label: key,
-    key: Countries
+    key: Countries[key]
   }));
 
-  public squadNumber = Object.keys(SquadNumber).slice(
-    Object.keys(SquadNumber).length / 2
-  );
+  public squadNumber = Object.keys(SquadNumber)
+    .slice(Object.keys(SquadNumber).length / 2)
+    .map(key => ({ label: key, key: SquadNumber[key] }));
 
   constructor(
     private playerService: PlayerService,
     private teamService: TeamService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.obtenerTeam();
+  }
 
   obtenerTeam() {
     this.teamService
@@ -41,17 +45,30 @@ export class PlayerDialogComponent implements OnInit {
       });
   }
 
-  nuevoJugador(playerFormValue) {
+  nuevoJugador(playerFormValue: any) {
     const key = this.playerService.addPlayer(playerFormValue).key;
     const playerFormValueKey = { ...playerFormValue, key };
-    const formatedTeam = {
+
+    const formattedTeam = {
       ...this.team,
       players: [
         ...(this.team.players ? this.team.players : []),
         playerFormValueKey
       ]
     };
-
-    this.teamService.editTeam(formatedTeam);
+    this.teamService.editTeam(formattedTeam);
   }
+
+  guardarJugador(playerForm: NgForm) {
+    const playerFormValue = { ...playerForm.value };
+
+    if (playerForm.valid) {
+      playerFormValue.leftFooted =
+        playerFormValue.leftFooted === '' ? false : playerFormValue.leftFooted;
+    }
+    this.nuevoJugador(playerFormValue);
+    window.location.replace('#');
+  }
+
+  cerrarModal() {}
 }
